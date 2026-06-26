@@ -24,6 +24,7 @@ The first full app sync was pushed successfully:
   - `sessions/README.md`
   - dated session notes in `sessions/`
 - Updated `AGENTS.md` so the agent checks GitHub first, reads project context when asked, and updates handoff files before ending meaningful sessions.
+- Added the user's Git preference: routine Git sync/publish commands may be used without repeated confirmation, but destructive/history-changing Git commands must still ask first.
 
 ## Next likely work
 
@@ -45,6 +46,7 @@ Recommended next step:
 - Pending recipes should remain pending until confirmed.
 - Keep formulas in `calculations.js`.
 - Use GitHub sync at the start and end of work.
+- Routine Git commands are approved by user preference; still ask before destructive Git operations.
 - GitHub currently reports the repo as `public`; the user expected private.
 
 ## Latest verified costing example
@@ -55,4 +57,3 @@ Recommended next step:
 - Selling price: AED 50.0000
 - Profit per plate: AED 37.0577
 - Margin: 74.1153%
-

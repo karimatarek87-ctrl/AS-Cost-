@@ -22,6 +22,29 @@ Before changing files, always check and sync the repository state:
 
 The goal is: when the user works from any computer, first sync the newest committed changes from GitHub, then make new changes, then commit and push those changes back to GitHub.
 
+The user wants routine Git commands to be allowed without repeated confirmation when they are part of normal project work. This includes:
+
+- `git status`
+- `git branch`
+- `git remote`
+- `git log`
+- `git fetch`
+- `git pull --ff-only`
+- `git add`
+- `git commit`
+- `git push`
+- `git ls-remote`
+
+Still ask before any destructive or history-changing Git command, including:
+
+- `git reset`
+- `git clean`
+- `git checkout -- <file>`
+- `git restore`
+- `git rebase`
+- force push
+- deleting branches or tags
+
 ## Project memory files
 
 Use these files to keep continuity between sessions and devices:
