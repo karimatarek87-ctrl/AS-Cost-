@@ -1,0 +1,6 @@
+ABU SHAKRA DRIVER OPERATIONS
+
+Double-click "Open Driver Operations App.cmd".
+
+The app is self-contained and can also be opened by double-clicking index.html.
+It is stored separately from the Abu Shakra Meal Costing system so the two apps cannot overwrite each other.

@@ -1,0 +1,23 @@
+# Local / temporary working files
+tmp/
+.agents/
+
+# Generated import review output
+tools/item-import-output/
+
+# Dependencies and caches
+node_modules/
+.cache/
+.parcel-cache/
+.vite/
+
+# Environment and secrets
+.env
+.env.*
+
+# OS/editor noise
+Thumbs.db
+.DS_Store
+desktop.ini
+*.log
+

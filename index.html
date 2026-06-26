@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#173f35">
+  <title>Abu Shakra | Meal Costing</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-mark">AS</div>
+        <div><strong>ABU SHAKRA</strong><span>Meal Costing</span></div>
+      </div>
+
+      <nav id="main-nav" aria-label="Main navigation">
+        <button class="nav-item active" data-page="dashboard"><span class="nav-icon">⌂</span>Dashboard</button>
+        <button class="nav-item" data-page="materials"><span class="nav-icon">◇</span>Raw materials</button>
+        <button class="nav-item" data-page="meals"><span class="nav-icon">≡</span>Meals & recipes</button>
+        <button class="nav-item" data-page="workforce"><span class="nav-icon">♙</span>Labour costs</button>
+        <button class="nav-item" data-page="expenses"><span class="nav-icon">▤</span>Operating expenses</button>
+        <button class="nav-item admin-only" data-page="users"><span class="nav-icon">♢</span>Users & roles</button>
+        <button class="nav-item admin-only" data-page="settings"><span class="nav-icon">⚙</span>Settings & backup</button>
+      </nav>
+
+      <div class="sidebar-foot">
+        <div class="data-health">
+          <span class="health-dot"></span>
+          <div><strong>Data saved locally</strong><small id="last-saved">Ready</small></div>
+        </div>
+        <button class="user-chip" id="user-switcher" type="button">
+          <span class="avatar" id="current-avatar">MA</span>
+          <span><strong id="current-user">Mohamed Adel</strong><small id="current-role">Administrator</small></span>
+          <b>⌄</b>
+        </button>
+      </div>
+    </aside>
+
+    <main>
+      <header class="topbar">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Open menu">☰</button>
+        <div><span class="top-kicker" id="page-kicker">COST CONTROL</span><h1 id="page-title">Meal cost overview</h1></div>
+        <div class="top-actions">
+          <label class="global-search"><span>⌕</span><input id="global-search" placeholder="Find a meal or material..."></label>
+          <button class="secondary-btn" id="export-top">Export backup</button>
+          <button class="primary-btn editor-only" id="quick-add">+ Add meal</button>
+        </div>
+      </header>
+
+      <div class="content">
+        <section class="page active" id="dashboard-page">
+          <div class="welcome">
+            <div><span class="eyebrow">LIVE COST SUMMARY</span><h2>Know what every plate really costs.</h2><p>Materials, labour and overheads are brought together on one unit basis.</p></div>
+            <div class="period-chip"><span>Costing period</span><strong id="dashboard-period">2026</strong></div>
+          </div>
+          <div class="stats-grid" id="dashboard-stats"></div>
+          <div class="dashboard-grid">
+            <article class="panel span-2">
+              <div class="panel-head"><div><span class="eyebrow">PROFITABILITY</span><h3>Meal performance</h3><p>Selling price before VAT compared with full unit cost.</p></div><button class="text-btn" data-page-link="meals">View all meals →</button></div>
+              <div class="table-wrap"><table><thead><tr><th>Meal</th><th>Department</th><th>Full cost</th><th>Price</th><th>Profit</th><th>Margin</th><th>Status</th></tr></thead><tbody id="dashboard-meals"></tbody></table></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head"><div><span class="eyebrow">COST MIX</span><h3>Where the money goes</h3></div></div>
+              <div id="cost-mix" class="cost-mix"></div>
+            </article>
+            <article class="panel span-2">
+              <div class="panel-head"><div><span class="eyebrow">NEEDS ATTENTION</span><h3>Cost control checks</h3></div><span class="count-pill" id="warning-count">0</span></div>
+              <div id="warning-list" class="warning-list"></div>
+            </article>
+            <article class="panel">
+              <div class="panel-head"><div><span class="eyebrow">PRODUCTION BASIS</span><h3>Annual meal quantity</h3></div></div>
+              <div id="production-summary" class="production-summary"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="page" id="materials-page">
+          <div class="section-head"><div><span class="eyebrow">PURCHASING FOUNDATION</span><h2>Raw materials</h2><p>Convert any purchase package into the smallest unit used by recipes.</p></div><button class="primary-btn editor-only" data-action="add-material">+ Add material</button></div>
+          <div class="info-banner"><b>How conversions work</b><span>Purchase price ÷ total base units = recipe unit cost. Example: 1 egg box × 12 trays × 30 eggs = 360 eggs.</span></div>
+          <div class="toolbar">
+            <label class="table-search"><span>⌕</span><input id="material-search" placeholder="Search materials..."></label>
+            <select id="material-category"><option value="all">All categories</option></select>
+            <span class="record-count" id="material-count"></span>
+          </div>
+          <div class="table-card"><div class="table-wrap"><table><thead><tr><th>Material</th><th>Purchase package</th><th>Conversion path</th><th>Purchase price</th><th>Yield</th><th>Cost / base unit</th><th></th></tr></thead><tbody id="materials-table"></tbody></table></div></div>
+        </section>
+
+        <section class="page" id="meals-page">
+          <div class="section-head"><div><span class="eyebrow">FULL PLATE COST</span><h2>Meals & recipes</h2><p>Build recipes and load the relevant labour and operating expenses.</p></div><button class="primary-btn editor-only" data-action="add-meal">+ Add meal</button></div>
+          <div class="toolbar">
+            <label class="table-search"><span>⌕</span><input id="meal-search" placeholder="Search meals..."></label>
+            <select id="meal-department"><option value="all">All departments</option></select>
+            <select id="meal-status"><option value="all">All results</option><option value="pending">Recipe pending</option><option value="profit">Profitable</option><option value="loss">Loss making</option></select>
+            <span class="record-count" id="meal-count"></span>
+          </div>
+          <div class="meal-grid" id="meal-grid"></div>
+        </section>
+
+        <section class="page" id="workforce-page">
+          <div class="section-head"><div><span class="eyebrow">LABOUR ALLOCATION</span><h2>Salary and wage costs</h2><p>Assign each employee to the meals produced by their department.</p></div><button class="primary-btn editor-only" data-action="add-employee">+ Add employee cost</button></div>
+          <div class="formula-strip"><span>Annual employment cost</span><b>Monthly salary × 12 + allowances + leave provision + end-of-service provision + other costs</b></div>
+          <div class="stats-grid compact" id="workforce-stats"></div>
+          <div class="table-card"><div class="table-wrap"><table><thead><tr><th>Employee / cost pool</th><th>Department</th><th>Type</th><th>Monthly salary</th><th>Leave provision</th><th>End of service</th><th>Annual total</th><th>Allocation</th><th></th></tr></thead><tbody id="employees-table"></tbody></table></div></div>
+          <p class="legal-note">UAE employment provisions are editable costing assumptions. Confirm current legal and payroll treatment with a qualified UAE adviser before financial reporting.</p>
+        </section>
+
+        <section class="page" id="expenses-page">
+          <div class="section-head"><div><span class="eyebrow">OVERHEAD ALLOCATION</span><h2>Operating expenses</h2><p>Spread fixed, variable, direct and indirect expenses over the right production basis.</p></div><button class="primary-btn editor-only" data-action="add-expense">+ Add expense</button></div>
+          <div class="formula-strip"><span>Production allocation</span><b>Annual amount × allocation % ÷ total basis quantity = unit expense cost</b></div>
+          <div class="stats-grid compact" id="expense-stats"></div>
+          <div class="table-card"><div class="table-wrap"><table><thead><tr><th>Expense</th><th>Class</th><th>Scope</th><th>Annual amount</th><th>Method</th><th>Allocation</th><th>Unit result</th><th></th></tr></thead><tbody id="expenses-table"></tbody></table></div></div>
+        </section>
+
+        <section class="page" id="users-page">
+          <div class="section-head"><div><span class="eyebrow">ACCESS CONTROL</span><h2>Users & roles</h2><p>Give each person only the access needed for their work.</p></div><button class="primary-btn" data-action="add-user">+ Add user</button></div>
+          <div class="role-grid" id="role-grid"></div>
+          <div class="table-card"><div class="table-wrap"><table><thead><tr><th>User</th><th>Role</th><th>Access</th><th>Status</th><th></th></tr></thead><tbody id="users-table"></tbody></table></div></div>
+        </section>
+
+        <section class="page" id="settings-page">
+          <div class="section-head"><div><span class="eyebrow">CONTROL CENTRE</span><h2>Settings & backup</h2><p>Manage costing defaults and keep a portable copy of your records.</p></div></div>
+          <div class="settings-grid">
+            <article class="panel"><div class="panel-head"><div><h3>Costing settings</h3><p>Used for new meals and dashboard reporting.</p></div></div><form id="settings-form" class="settings-form"><label>Business name<input name="businessName"></label><label>Costing year<input name="costingYear" type="number" min="2020" max="2100"></label><label>VAT rate (%)<input name="vatRate" type="number" min="0" step="0.01"></label><label>Currency<select name="currency"><option>AED</option><option>USD</option><option>SAR</option><option>EGP</option></select></label><button class="primary-btn" type="submit">Save settings</button></form></article>
+            <article class="panel"><div class="panel-head"><div><h3>Backup & restore</h3><p>Your records currently live in this browser.</p></div></div><div class="backup-actions"><button class="secondary-btn" id="export-backup">Download full backup</button><label class="secondary-btn file-btn">Restore from backup<input id="import-backup" type="file" accept="application/json"></label><button class="danger-btn" id="reset-demo">Restore sample data</button></div><div class="storage-card"><b>Important</b><p>Download a backup regularly. For secure passwords, multiple computers and automatic backups, this app should later be connected to a protected online database.</p></div></article>
+            <article class="panel span-2"><div class="panel-head"><div><h3>Departments</h3><p>Production sections used to allocate employee and expense costs.</p></div></div><div id="department-list" class="department-list"></div><form id="department-form" class="inline-form"><input name="name" placeholder="New department name" required><button class="primary-btn" type="submit">Add department</button></form></article>
+          </div>
+        </section>
+      </div>
+    </main>
+  </div>
+
+  <div class="modal" id="material-modal" aria-hidden="true">
+    <div class="modal-card">
+      <div class="modal-head"><div><span class="eyebrow">RAW MATERIAL</span><h2 id="material-modal-title">Add material</h2></div><button data-close aria-label="Close">×</button></div>
+      <form id="material-form" class="form-grid">
+        <input type="hidden" name="id">
+        <label>Material name<input name="name" required placeholder="e.g. Fresh eggs"></label>
+        <label>Category<input name="category" list="category-list" required placeholder="e.g. Dairy & eggs"><datalist id="category-list"></datalist></label>
+        <label>Supplier<input name="supplier" placeholder="Optional"></label>
+        <label>Purchase price (AED)<input name="purchasePrice" type="number" min="0" step="0.0001" required></label>
+        <label>Purchase package name<input name="purchaseUnit" required placeholder="e.g. Box"></label>
+        <label>Usable yield (%)<input name="yieldPct" type="number" min="0.01" max="100" step="0.01" value="100" required></label>
+        <fieldset class="full conversion-fieldset"><legend>Package conversions</legend><p>Add each level in order. Example: Box contains 12 Trays; Tray contains 30 Pieces.</p><div id="conversion-rows"></div><button class="mini-btn" id="add-conversion" type="button">+ Add conversion level</button></fieldset>
+        <label class="full">Notes<textarea name="notes" placeholder="Brand, specification, storage notes..."></textarea></label>
+        <div class="conversion-preview full" id="conversion-preview"></div>
+        <div class="form-actions full"><button class="secondary-btn" type="button" data-close>Cancel</button><button class="primary-btn" type="submit">Save material</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="meal-modal" aria-hidden="true">
+    <div class="modal-card extra-wide">
+      <div class="modal-head"><div><span class="eyebrow">RECIPE CARD</span><h2 id="meal-modal-title">Build meal cost</h2></div><button data-close aria-label="Close">×</button></div>
+      <form id="meal-form">
+        <input type="hidden" name="id">
+        <div class="form-grid meal-basics">
+          <label>Meal name<input name="name" required placeholder="e.g. Mixed Grill"></label>
+          <label>Menu code<input name="code" required placeholder="GR-001"></label>
+          <label>Department<select name="departmentId" required></select></label>
+          <label>Branch<select name="branch"><option>All Branches</option><option>Deira</option><option>Al Barsha</option><option>Jumeirah</option></select></label>
+          <label>Annual production quantity<input name="annualQty" type="number" min="0" step="0.0001" required></label>
+          <label>Selling price before VAT<input name="sellingPrice" type="number" min="0" step="0.0001" required></label>
+        </div>
+        <div class="recipe-layout">
+          <div class="recipe-main">
+            <section class="editor-section"><div class="editor-section-head"><div><h3>Recipe materials</h3><p>Enter the quantity used in one meal.</p></div><button class="mini-btn" id="add-recipe-line" type="button">+ Add ingredient</button></div><div class="recipe-table"><div class="recipe-header"><span>Material</span><span>Quantity</span><span>Unit</span><span>Waste %</span><span>Line cost</span><span></span></div><div id="recipe-lines"></div></div></section>
+            <section class="editor-section"><div class="editor-section-head"><div><h3>Salary costs to include</h3><p>Department employees are divided over department production.</p></div></div><div id="meal-employees" class="selection-list"></div></section>
+            <section class="editor-section"><div class="editor-section-head"><div><h3>Operating expenses to include</h3><p>Only the calculated unit result is added to this meal.</p></div></div><div id="meal-expenses" class="selection-list"></div></section>
+          </div>
+          <aside class="cost-preview" id="meal-cost-preview"></aside>
+        </div>
+        <div class="form-actions sticky-actions"><button class="secondary-btn" type="button" data-close>Cancel</button><button class="primary-btn" type="submit">Save recipe</button></div>
+      </form>
+    </div>
+  </div>
+
+  <div class="modal" id="employee-modal" aria-hidden="true"><div class="modal-card"><div class="modal-head"><div><span class="eyebrow">EMPLOYMENT COST</span><h2 id="employee-modal-title">Add employee cost</h2></div><button data-close>×</button></div><form id="employee-form" class="form-grid"><input type="hidden" name="id"><label>Employee / cost pool<input name="name" required></label><label>Department<select name="departmentId" required></select></label><label>Cost type<select name="costType"><option value="direct">Direct labour</option><option value="indirect">Indirect labour</option></select></label><label>Monthly salary<input name="monthlySalary" type="number" min="0" step="0.0001" required></label><label>Monthly allowances<input name="monthlyAllowances" type="number" min="0" step="0.0001" value="0"></label><label>Annual leave provision<input name="leaveProvision" type="number" min="0" step="0.0001" value="0"></label><label>End-of-service provision<input name="eosProvision" type="number" min="0" step="0.0001" value="0"></label><label>Other annual costs<input name="otherAnnual" type="number" min="0" step="0.0001" value="0"></label><label>Allocation percentage<input name="allocationPct" type="number" min="0" max="100" step="0.01" value="100"></label><div class="form-actions full"><button class="secondary-btn" type="button" data-close>Cancel</button><button class="primary-btn" type="submit">Save employee cost</button></div></form></div></div>
+
+  <div class="modal" id="expense-modal" aria-hidden="true"><div class="modal-card"><div class="modal-head"><div><span class="eyebrow">OPERATING EXPENSE</span><h2 id="expense-modal-title">Add expense</h2></div><button data-close>×</button></div><form id="expense-form" class="form-grid"><input type="hidden" name="id"><label>Expense name<input name="name" required placeholder="e.g. Deira Rent - 2026"></label><label>Expense class<select name="costClass"><option>Fixed</option><option>Variable</option><option>Direct</option><option>Indirect</option></select></label><label>Annual amount<input name="annualAmount" type="number" min="0" step="0.0001" required></label><label>Allocation percentage<input name="allocationPct" type="number" min="0" max="100" step="0.01" value="100"></label><label>Scope<select name="scope"><option value="all">All departments</option><option value="department">Specific department</option></select></label><label>Department<select name="departmentId"></select></label><label>Allocation method<select name="method"><option value="production_qty">Production quantity</option><option value="manual_unit">Manual unit cost</option></select></label><label>Manual unit cost<input name="manualUnit" type="number" min="0" step="0.0001" value="0"></label><label class="full">Notes<textarea name="notes"></textarea></label><div class="form-actions full"><button class="secondary-btn" type="button" data-close>Cancel</button><button class="primary-btn" type="submit">Save expense</button></div></form></div></div>
+
+  <div class="modal" id="user-modal" aria-hidden="true"><div class="modal-card compact-modal"><div class="modal-head"><div><span class="eyebrow">USER ACCESS</span><h2 id="user-modal-title">Add user</h2></div><button data-close>×</button></div><form id="user-form" class="form-grid"><input type="hidden" name="id"><label class="full">Full name<input name="name" required></label><label class="full">Email<input name="email" type="email" required></label><label>Role<select name="role"><option value="administrator">Administrator</option><option value="cost_controller">Cost controller</option><option value="purchasing">Purchasing</option><option value="manager">Management viewer</option></select></label><label>Status<select name="status"><option>Active</option><option>Suspended</option></select></label><div class="form-actions full"><button class="secondary-btn" type="button" data-close>Cancel</button><button class="primary-btn" type="submit">Save user</button></div></form></div></div>
+
+  <div class="modal" id="user-switch-modal" aria-hidden="true"><div class="modal-card compact-modal"><div class="modal-head"><div><span class="eyebrow">DEMO ACCESS</span><h2>Switch current user</h2></div><button data-close>×</button></div><div id="switch-user-list" class="switch-user-list"></div><p class="modal-note">This demonstrates role permissions on this computer. Secure sign-in requires an online database and authentication service.</p></div></div>
+
+  <div class="drawer-backdrop" id="drawer-backdrop"></div>
+  <aside class="detail-drawer" id="detail-drawer"><button class="drawer-close" id="drawer-close">×</button><div id="drawer-content"></div></aside>
+  <div class="toast" id="toast"><b>✓</b><div><strong id="toast-title">Saved</strong><span id="toast-message"></span></div></div>
+  <script src="imported-materials.js"></script>
+  <script src="imported-menu.js"></script>
+  <script src="data.js"></script>
+  <script src="calculations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>

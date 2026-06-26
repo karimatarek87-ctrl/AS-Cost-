@@ -1,0 +1,16 @@
+ABU SHAKRA MEAL COSTING
+
+1. Double-click index.html to open the system.
+2. Start with the Dashboard, then open Raw materials to check purchase prices and package conversions.
+   The 1,006 records from Item.xlsx are already loaded under the "Imported Items" category. Records with zero rates remain visible for price completion.
+3. Open Meals & recipes to see the complete unit cost of each meal or create a new recipe.
+   The 2025 menu meals and selling-price variants are already imported from AS_MENU_2025.pdf. Filter by "Recipe pending" to complete ingredients and production quantities.
+4. Labour costs and Operating expenses are allocated using annual production quantities.
+5. Use the account card at the bottom-left to test Administrator, Cost Controller, Purchasing and Management Viewer access.
+6. All changes are saved in this browser on this computer.
+7. Open Settings & backup and select Download full backup regularly. The backup contains every material, recipe, salary, expense, user and setting.
+
+IMPORTANT
+This is a local single-computer system. User roles demonstrate access levels, but they are not secure passwords. For simultaneous use on several computers, protected sign-in and automatic cloud backups, connect this interface to a secure online database in the next stage.
+
+UAE annual-leave and end-of-service amounts are editable costing provisions. Confirm the current legal and payroll treatment with a qualified UAE adviser before using them for formal financial reporting.
