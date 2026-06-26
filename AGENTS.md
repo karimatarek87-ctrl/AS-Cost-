@@ -22,6 +22,30 @@ Before changing files, always check and sync the repository state:
 
 The goal is: when the user works from any computer, first sync the newest committed changes from GitHub, then make new changes, then commit and push those changes back to GitHub.
 
+## Project memory files
+
+Use these files to keep continuity between sessions and devices:
+
+- `PROJECT_CONTEXT.md` — stable project overview, business rules, app structure, important data facts, and protected decisions.
+- `SESSION_HANDOFF.md` — the latest working state, what changed last, what to do next, and any warnings.
+- `sessions/` — dated session notes for historical reference.
+
+At the start of a new work session, after the Git safety check above, read:
+
+1. `PROJECT_CONTEXT.md`
+2. `SESSION_HANDOFF.md`
+3. The newest relevant file in `sessions/`
+
+If the user says "read project context", "continue from context", "new device", "new session", "where did we stop", or similar, read those files before making changes.
+
+Before ending any session where meaningful work happened, update:
+
+1. `SESSION_HANDOFF.md`
+2. A dated note under `sessions/` when the work is substantial
+3. `PROJECT_CONTEXT.md` only if stable project facts, rules, architecture, counts, or major decisions changed
+
+After updating memory files, commit and push the changes unless the user explicitly asks not to sync.
+
 ## Main repository
 
 - GitHub repo: `https://github.com/karimatarek87-ctrl/AS-Cost-.git`
@@ -53,4 +77,3 @@ For normal JavaScript edits, run syntax checks before committing:
 If using the bundled Codex Node.js executable, run the same checks with:
 
 `C:\Users\Aldeyaa01\.cache\codex-runtimes\codex-primary-runtime\dependencies\node\bin\node.exe`
-
